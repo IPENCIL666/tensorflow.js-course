@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+</head>
+<body>
+<script>
+    //设置神经网络参数
+    var w = tf.variable(tf.tensor(Math.random()));
+    //定义训练数据
+    var data = tf.tensor([1,2],[2,1]);//输入值
+    var label = tf.tensor([3,6],[2,1]);//输出值
+    //定义损失函数
+    function loss(predictions,labels){
+        var meanSquareError= predictions.sub(labels).square().mean();
+        return meanSquareError;
+    }
+    /*
+    减法 sub()
+    平方 square()
+    平均数 mean()
+     */
+</script>
+</body>
+</html>

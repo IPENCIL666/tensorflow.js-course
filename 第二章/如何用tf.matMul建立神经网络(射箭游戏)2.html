@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+</head>
+<body>
+<script>
+    //输入数据
+    var input = tf.tensor([5],[1,1]);
+    //中间层
+    var w1 = tf.tensor([0.569,0.942],[1,2]);
+    var b1 = tf.tensor([-0.1,0.405],[1,2]);
+    var l1 = input.matMul(w1).add(b1);
+    //输出层
+    var w2 = tf.tensor([0.901,1.894],[2,1]);
+    var b2 = tf.tensor([-0.97]);
+    var l2 = l1.matMul(w2).add(b2);
+</script>
+</body>
+</html>

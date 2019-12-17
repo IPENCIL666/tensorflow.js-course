@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+</head>
+<body>
+<script>
+    //输入参数
+    var input = tf.tensor([3,4],[1,2]);
+    //神经元参数
+    var weight = tf.tensor([5,6],[2,1]);
+    var bias = tf.tensor(7);
+    //计算输出结果
+    var result = input.matMul(weight).add(bias);
+    //
+    //
+    //
+
+</script>
+</body>
+</html>

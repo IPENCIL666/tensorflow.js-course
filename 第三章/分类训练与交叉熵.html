@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+</head>
+<body>
+<script>
+    /*
+    预测与分类区别：
+         输入数据 期望数据 训练结果 最终输出不带激活函数 激活函数
+    预测 连续的 连续的 精准的值  线性回归  无
+    分类 连续的 离散的 概率值  逻辑回归  sigmoid
+     */
+    //定义损失函数
+    function loss(predictions,labels){
+        var meanSquareError = predictions.sub(labels).square().mean();
+        return meanSquareError;
+    }
+
+</script>
+</body>
+</html>

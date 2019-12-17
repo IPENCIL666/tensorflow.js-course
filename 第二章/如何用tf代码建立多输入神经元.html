@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+</head>
+<body>
+    <script>
+        tf.setBack("cpu")
+        //神经元参数
+        var weight = tf.tensor([0.01, 0.18],[2,1]);
+        var bias = tf.tensor(0.26);
+        //正向传播代码
+        function predict(input){
+            var output = tf.tensor(input,[1,2]).matMul(weight).add(bias);
+            return output.dataSync()[0];
+        }
+    </script>
+</body>
+</html>

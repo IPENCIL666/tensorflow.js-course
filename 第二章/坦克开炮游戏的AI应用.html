@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+</head>
+<body>
+<script>
+    tf.setBackend("cpu")
+    var bias = tf.tensor(0.26);
+    var weights = tf.tensor([0.01,0.18],[2,1]);
+    function predict(input) {
+        var output = tf.tensor(input,[1,2]).matMul(weights).add(bias);
+        return output.dataSync()[0];
+    }
+    var game = new FireGame(null,600,400);
+    async function init() {
+        while(true){
+            var stateObj = game.getState();
+            if(stateObj.stepOver==false){
+                var output = predict(stateObj.state);
+                game.step(output);
+            }
+            await tf.nextFrame();
+        }
+    }
+</script>
+</body>
+</html>

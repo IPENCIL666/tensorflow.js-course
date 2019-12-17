@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+</head>
+<body>
+<script>
+    /*
+    tf.memory 获取当前内存信息
+    属性 作用
+    numTensors 内存中共有多少个tensor对象
+    numBytes 总共占用内存数
+     */
+    const data= tf.tensor([1,2],[2,1]);
+    const label = tf.tensor([3,6],[2,1]);
+
+    var obj = tf.memory();
+    console.log(obj.munBytes);
+    console.log(obj.numTensors);
+    /*
+    tf.dispose 销毁tensor对象
+     */
+    var list = tf.tensor([1,2,3]);
+    list.dispose();
+    tf.dispose(list);
+
+    const data= tf.tensor([1,2],[2,1]);
+    const label = tf.tensor([3,6],[2,1]);
+    data.dispose();
+    label.dispose();
+
+    var obj = tf.memory();
+    console.log(obj.munBytes);
+    console.log(obj.numTensors);
+    /*
+    tf.tidy() 自动销毁tensor对象
+     */
+    tf.tidy(()=>{
+        some_code
+        return 值;//注意
+    })
+
+    tf.tidy(()=>{
+        const data = tf.tensor([1,2],[2,1]);
+        const lable = tf.tensor([3,6],[2,1]);
+        const w = tf.variable(tf.scalar(Math.random()));
+
+        const optimizer = tf.train.sgd(0.1);
+
+        for(var i=0;i<100;i++){
+            const {value, grads} = tf.variableGrads(function(){
+                const predsYs = data.mul(w);
+                var _loss = predsYs.sub(label).square().mean();
+                return _loss
+            });
+            optimizer.applyGradients(grads);
+        }
+        optimizer.dispose();//不是张量,优化器
+        w.dispose();//不是张量
+    });
+    var obj = tf.memory();
+    console.log(obj.numBytes);
+    console.log(obj.numTensors);
+
+    /*
+    tf.keep() 防止自动销毁tensor对象
+     */
+    tf.tidy(()=>{
+        some_code
+        tf.keep(张量);
+        return 值;
+    })
+
+    var loss;
+
+    tf.tidy(()=>{
+        const data = tf.tensor([1,2],[2,1]);
+        const label = tf.tensor([3,6],[2,1]);
+        const w = tf.variable(tf.scalar(Math.random()));
+
+        const optimizer = tf.train.sgd(0.1);
+
+        const {value, grads} = tf.variableGrads(function () {
+            const predsYs = data.mul(w);
+            loss = predsYs.sub(label).square().mean();
+            losss = tf.keep(loss);
+            return loss
+        });
+        optimizer.applyGradients(grads);
+        optimizer.dispose();
+        w.dispose();
+    });
+
+    loss.print()
+</script>
+</body>
+</html>
